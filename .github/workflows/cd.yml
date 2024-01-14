@@ -1,0 +1,80 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main", "staging" ]
+
+permissions:
+  contents: write
+
+env:
+  ECR_REPOSITORY: nginx-app
+  EKS_CLUSTER_NAME: main-${{ vars.STAGE }}
+  AWS_REGION: us-east-1
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: 
+      name: ${{ github.ref_name }}
+    steps:
+    - name: Check out Code
+      uses: actions/checkout@v3
+    - name: Set short git commit SHA
+      id: commit
+      uses: prompt/actions-commit-hash@v3
+    # - name: Setup Node.js
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: "lts/*"
+    ### Configure AWS Access
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{env.AWS_REGION}}
+    - name: Update kube config
+      run: echo aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+    ### Deploy ArgoCD Application, only run if application file was updated
+    - uses: dorny/paths-filter@v2
+      id: changes
+      with:
+        filters: |
+          application:
+            - 'argocd/**'
+    - name: Deploy ArgoCD application
+      if: steps.changes.outputs.application == 'true'
+      run: echo kubectl apply -f argocd/application.yaml -f charts/values-${{ vars.STAGE }}.yaml
+      
+    ### Semantic Release
+    - run: npm install
+    # - run: npx semantic-release
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Semantic Release
+      uses: cycjimmy/semantic-release-action@v4
+      id: semantic   # Need an `id` for output variables
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Do something when a new release published
+      if: steps.semantic.outputs.new_release_published == 'true'
+      run: |
+        echo ${{ steps.semantic.outputs.new_release_version }}
+        echo ${{ steps.semantic.outputs.new_release_major_version }}
+        echo ${{ steps.semantic.outputs.new_release_minor_version }}
+        echo ${{ steps.semantic.outputs.new_release_patch_version }}
+
+    ### Build Docker Image
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
+        IMAGE_TAG: ${{ steps.commit.outputs.short }}
+      run: |
+          echo docker build -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} -f docker/Dockerfile .
+          echo docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+  
