@@ -1,3 +1,10 @@
+# 1.0.0-rc.1 (2024-01-14)
+
+
+### Features
+
+* initial commit ([2e9c797](https://github.com/dlopezb93/sample-argocd-app/commit/2e9c797aa53536cb60c44f814db262dd7521075d))
+
 # [1.3.0-rc.1](https://github.com/dlopezb93/sample-argocd-nginx/compare/v1.2.0...v1.3.0-rc.1) (2024-01-14)
 
 
