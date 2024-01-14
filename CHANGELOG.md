@@ -1,3 +1,10 @@
+# [1.0.0-rc.2](https://github.com/dlopezb93/sample-argocd-app/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2024-01-14)
+
+
+### Features
+
+* update replicaCount for k8s service ([603cf39](https://github.com/dlopezb93/sample-argocd-app/commit/603cf39eb40f46154185501fb62abece1dfab3b7))
+
 # 1.0.0-rc.1 (2024-01-14)
 
 
