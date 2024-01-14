@@ -23,10 +23,6 @@ jobs:
     - name: Set short git commit SHA
       id: commit
       uses: prompt/actions-commit-hash@v3
-    # - name: Setup Node.js
-    #   uses: actions/setup-node@v3
-    #   with:
-    #     node-version: "lts/*"
     ### Configure AWS Access
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -49,12 +45,9 @@ jobs:
       
     ### Semantic Release
     - run: npm install
-    # - run: npx semantic-release
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v4
-      id: semantic   # Need an `id` for output variables
+      id: semantic
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
