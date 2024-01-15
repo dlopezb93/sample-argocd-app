@@ -18,20 +18,19 @@ jobs:
     environment: 
       name: ${{ github.ref_name }}
     steps:
+      ### Setup
     - name: Check out Code
-      uses: actions/checkout@v3
-    - name: Set short git commit SHA
-      id: commit
-      uses: prompt/actions-commit-hash@v3
-    ### Configure AWS Access
+      uses: actions/checkout@v3    
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{env.AWS_REGION}}
+    - name: Setup yq
+      uses: vegardit/gha-setup-yq@v1
     ### Semantic Release
-    - run: npm install
+    #- run: npm install
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v4
       id: semantic
@@ -53,8 +52,6 @@ jobs:
           docker tag nginx:latest ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
     ### Update k8s manifiest
-    - name: Setup yq
-      uses: vegardit/gha-setup-yq@v1
     - name: Checkout deployment repository
       uses: actions/checkout@v3
       if: steps.semantic.outputs.new_release_published == 'true'
@@ -62,7 +59,7 @@ jobs:
         repository: dlopezb93/sample-argocd-app-deployments
         path: ./source-deployments
         ref: main
-        token: ${{ secrets.GIT_BOT_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
     - run: cat ./source-deployments/charts/nginx/values-${{ vars.STAGE}}.yaml
     - name: Staging - Update K8S Manifiest
       env:
@@ -76,23 +73,21 @@ jobs:
         git config user.email github-actions@github.com
         git commit -am "chore: update image tag in values-${{ vars.STAGE }}.yaml [skip ci]"
         git push
-    - name: Create PR in deployments repository
+    - name: Production - Create PR in deployments repository
       env:
         IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
-        GH_TOKEN: ${{ secrets.GIT_BOT_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       if: |
         ${{ steps.semantic.outputs.new_release_published == 'true' }} && ${{ vars.STAGE == 'stg' }}
       run: |
         REPOSITORY="dlopezb93/sample-argocd-app-deployments"
         FOLDER="bin/$REPOSITORY"
-        BRANCH="chore/update-tag-${{ env.IMAGE_TAG }}"
+        BRANCH="chore/release-tag-${{ env.IMAGE_TAG }}"
 
-        # Clone the remote repository and change working directory to the
-        # folder it was cloned to.
         git clone \
           --depth=1 \
           --branch=main \
-          https://dlopezb93:${{ secrets.GIT_BOT_TOKEN }}@github.com/$REPOSITORY \
+          https://dlopezb93:${{ secrets.GITHUB_TOKEN }}@github.com/$REPOSITORY \
           $FOLDER
 
         cd $FOLDER
