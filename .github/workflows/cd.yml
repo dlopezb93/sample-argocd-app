@@ -49,14 +49,6 @@ jobs:
       id: semantic
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    - name: Do something when a new release published
-      if: steps.semantic.outputs.new_release_published == 'true'
-      run: |
-        echo ${{ steps.semantic.outputs.new_release_version }}
-        echo ${{ steps.semantic.outputs.new_release_major_version }}
-        echo ${{ steps.semantic.outputs.new_release_minor_version }}
-        echo ${{ steps.semantic.outputs.new_release_patch_version }}
     ### Build and Push Docker Image
     - name: Login to Amazon ECR
       id: login-ecr
@@ -99,6 +91,7 @@ jobs:
     - name: Create PR in deployments repository
       env:
         IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
+        GH_TOKEN: ${{ secrets.GIT_BOT_TOKEN }}
       if: |
         ${{ steps.semantic.outputs.new_release_published == 'true' }} && ${{ vars.STAGE == 'stg' }}
       run: |
