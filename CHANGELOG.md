@@ -1,3 +1,10 @@
+# [1.1.0-rc.15](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.14...v1.1.0-rc.15) (2024-01-15)
+
+
+### Bug Fixes
+
+* set gh token env variable ([2f9a019](https://github.com/dlopezb93/sample-argocd-app/commit/2f9a0195b24f411a9c9ca5c1225bf1953e740109))
+
 # [1.1.0-rc.14](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.13...v1.1.0-rc.14) (2024-01-15)
 
 
