@@ -72,5 +72,15 @@ jobs:
           docker pull nginx:latest
           docker tag nginx:latest ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+    ### Update k8s manifiest
+    - name: Update K8S deployment manifiest
+      if: steps.semantic.outputs.new_release_published == 'true'
+      id: lookupSdkVersion
+      uses: mikefarah/yq@master
+      env:
+        IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
+      with:
+        cmd: yq '.image.tag = "${{ env.IMAGE_TAG }}"' -i charts/nginx/values-${{ vars.STAGE}}.yaml
+    - run: cat charts/nginx/values-${{ vars.STAGE}}.yaml
           
   
