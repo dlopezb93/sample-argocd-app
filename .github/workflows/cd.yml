@@ -83,18 +83,12 @@ jobs:
         path: ./source-deployments
         ref: main
         token: ${{ secrets.GIT_BOT_TOKEN }}
-    # - name: Update K8S deployment manifiest
-    #   if: steps.semantic.outputs.new_release_published == 'true'
-    #   uses: mikefarah/yq@master
-    #   env:
-    #     IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
-    #   with:
-    #     cmd: yq '.image.tag = "${{ env.IMAGE_TAG }}"' -i ./source-deployments/charts/nginx/values-${{ vars.STAGE }}.yaml
     - run: cat ./source-deployments/charts/nginx/values-${{ vars.STAGE}}.yaml
     - name: Staging - Update K8S Manifiest
       env:
         IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
-      if: ${{ (steps.semantic.outputs.new_release_published == 'true') && (vars.STAGE == 'stg') }}
+      if: |
+        steps.semantic.outputs.new_release_published == 'true' || ${{ vars.STAGE }} == 'prd'
       run: |
         cd ./source-deployments
         yq '.image.tag = "${{ env.IMAGE_TAG }}"' -i ./charts/nginx/values-${{ vars.STAGE }}.yaml
