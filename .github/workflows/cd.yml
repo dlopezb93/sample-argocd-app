@@ -87,8 +87,7 @@ jobs:
     - name: Staging - Update K8S Manifiest
       env:
         IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
-      if: |
-        steps.semantic.outputs.new_release_published == 'true' || ${{ vars.STAGE }} == 'prd'
+      if: (steps.semantic.outputs.new_release_published == 'true' && ${{ vars.STAGE }} == 'prd')
       run: |
         cd ./source-deployments
         yq '.image.tag = "${{ env.IMAGE_TAG }}"' -i ./charts/nginx/values-${{ vars.STAGE }}.yaml
