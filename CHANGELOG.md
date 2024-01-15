@@ -1,3 +1,10 @@
+# [1.1.0-rc.3](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.2...v1.1.0-rc.3) (2024-01-15)
+
+
+### Features
+
+* update k8s deployment manifiest using deployed version ([0610a55](https://github.com/dlopezb93/sample-argocd-app/commit/0610a557e6cafff925e62cebd35d2fa0d81156a1))
+
 # [1.1.0-rc.2](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.1...v1.1.0-rc.2) (2024-01-15)
 
 
