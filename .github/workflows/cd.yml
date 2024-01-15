@@ -118,7 +118,8 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
         git checkout -b chore/update-image-tag
-        cp ./source-deployments/charts/nginx/values-${{ vars.STAGE }}.yaml $FOLDER/charts/nginx/values-${{ vars.STAGE }}.yaml
+        pwd
+        cp ../charts/nginx/values-${{ vars.STAGE }}.yaml $FOLDER/charts/nginx/values-${{ vars.STAGE }}.yaml
         git add .
         git commit -am "chore: update image tag in values-${{ vars.STAGE }}.yaml [skip ci]"
         git push origin chore/update-image-tag
