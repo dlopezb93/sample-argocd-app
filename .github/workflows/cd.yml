@@ -30,18 +30,6 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{env.AWS_REGION}}
-    - name: Update kube config
-      run: echo aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
-    ### Deploy ArgoCD Application, only run if application file was updated
-    # - uses: dorny/paths-filter@v2
-    #   id: changes
-    #   with:
-    #     filters: |
-    #       application:
-    #         - 'argocd/**'
-    # - name: Deploy ArgoCD application
-    #   if: steps.changes.outputs.application == 'true'
-    #   run: echo kubectl apply -f argocd/application.yaml -f charts/values-${{ vars.STAGE }}.yaml
     ### Semantic Release
     - run: npm install
     - name: Semantic Release
