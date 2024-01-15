@@ -1,3 +1,10 @@
+# [1.1.0-rc.4](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.3...v1.1.0-rc.4) (2024-01-15)
+
+
+### Features
+
+* update staging values file ([6381028](https://github.com/dlopezb93/sample-argocd-app/commit/638102808610fcb55ecb36b2f27c842901de3eae))
+
 # [1.1.0-rc.3](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.2...v1.1.0-rc.3) (2024-01-15)
 
 
