@@ -1,3 +1,10 @@
+# [1.1.0-rc.18](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.17...v1.1.0-rc.18) (2024-01-15)
+
+
+### Features
+
+* improve action workflow ([b4b49ae](https://github.com/dlopezb93/sample-argocd-app/commit/b4b49aee4162bf75e485413322b6a2d44514413f))
+
 # [1.1.0-rc.17](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.16...v1.1.0-rc.17) (2024-01-15)
 
 
