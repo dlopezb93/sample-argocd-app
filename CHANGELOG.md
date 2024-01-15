@@ -1,3 +1,12 @@
+# [1.1.0-rc.1](https://github.com/dlopezb93/sample-argocd-app/compare/v1.0.0...v1.1.0-rc.1) (2024-01-15)
+
+
+### Features
+
+* update argocd app name ([b858fec](https://github.com/dlopezb93/sample-argocd-app/commit/b858fec1eeb41cd34e24116f8f4de26bfb638c52))
+* update replicaCount for k8s service ([603cf39](https://github.com/dlopezb93/sample-argocd-app/commit/603cf39eb40f46154185501fb62abece1dfab3b7))
+* update semantic-release configuration ([4cd52e1](https://github.com/dlopezb93/sample-argocd-app/commit/4cd52e1b6d18523d2165caf3c4bad6e693c80606))
+
 # [1.1.0-rc.1](https://github.com/dlopezb93/sample-argocd-app/compare/v1.0.0...v1.1.0-rc.1) (2024-01-14)
 
 
