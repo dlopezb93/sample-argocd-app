@@ -33,15 +33,15 @@ jobs:
     - name: Update kube config
       run: echo aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
     ### Deploy ArgoCD Application, only run if application file was updated
-    - uses: dorny/paths-filter@v2
-      id: changes
-      with:
-        filters: |
-          application:
-            - 'argocd/**'
-    - name: Deploy ArgoCD application
-      if: steps.changes.outputs.application == 'true'
-      run: echo kubectl apply -f argocd/application.yaml -f charts/values-${{ vars.STAGE }}.yaml
+    # - uses: dorny/paths-filter@v2
+    #   id: changes
+    #   with:
+    #     filters: |
+    #       application:
+    #         - 'argocd/**'
+    # - name: Deploy ArgoCD application
+    #   if: steps.changes.outputs.application == 'true'
+    #   run: echo kubectl apply -f argocd/application.yaml -f charts/values-${{ vars.STAGE }}.yaml
     ### Semantic Release
     - run: npm install
     - name: Semantic Release
@@ -73,14 +73,27 @@ jobs:
           docker tag nginx:latest ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
           docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
     ### Update k8s manifiest
+    - name: Checkout deployment repository
+      uses: actions/checkout@v3
+      if: steps.semantic.outputs.new_release_published == 'true'
+      with: 
+        repository: dlopezb93/sample-argocd-app-deployments
+        path: ./source-deployments
+        ref: main
     - name: Update K8S deployment manifiest
       if: steps.semantic.outputs.new_release_published == 'true'
-      id: lookupSdkVersion
       uses: mikefarah/yq@master
       env:
         IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
       with:
-        cmd: yq '.image.tag = "${{ env.IMAGE_TAG }}"' -i charts/nginx/values-${{ vars.STAGE}}.yaml
-    - run: cat charts/nginx/values-${{ vars.STAGE}}.yaml
-          
+        cmd: yq '.image.tag = "${{ env.IMAGE_TAG }}"' -i ./source-deployments/charts/nginx/values-${{ vars.STAGE }}.yaml
+    - run: cat ./source-deployments/charts/nginx/values-${{ vars.STAGE}}.yaml
+    - name: Push Project B
+      run: |
+        cd ./source-deployments
+        git add .
+        git config user.name github-actions-bot
+        git config user.email github-actions@github.com
+        git commit -am "chore: update image tag in values-${{ vars.STAGE }}.yaml [skip ci]"
+        git push
   
