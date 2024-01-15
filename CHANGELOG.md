@@ -1,3 +1,10 @@
+# [1.1.0-rc.14](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.13...v1.1.0-rc.14) (2024-01-15)
+
+
+### Bug Fixes
+
+* update if github actions ([c256c9f](https://github.com/dlopezb93/sample-argocd-app/commit/c256c9f924eb5e73b299b3bc9043af1ee04dd6a2))
+
 # [1.1.0-rc.13](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.12...v1.1.0-rc.13) (2024-01-15)
 
 
