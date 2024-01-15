@@ -1,3 +1,10 @@
+# [1.1.0-rc.16](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.15...v1.1.0-rc.16) (2024-01-15)
+
+
+### Features
+
+* remove k8s step ([061fc2c](https://github.com/dlopezb93/sample-argocd-app/commit/061fc2cecf2fdaf119c6516f85097e6234e4062b))
+
 # [1.1.0-rc.15](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.14...v1.1.0-rc.15) (2024-01-15)
 
 
