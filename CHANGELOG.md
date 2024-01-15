@@ -1,3 +1,10 @@
+# [1.1.0-rc.17](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.16...v1.1.0-rc.17) (2024-01-15)
+
+
+### Features
+
+* update branch name in PR ([f9d4530](https://github.com/dlopezb93/sample-argocd-app/commit/f9d4530155009008dd2f004da45c33ed9191e55c))
+
 # [1.1.0-rc.16](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.15...v1.1.0-rc.16) (2024-01-15)
 
 
