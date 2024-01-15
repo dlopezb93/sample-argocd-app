@@ -1,3 +1,10 @@
+# [1.1.0-rc.7](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.6...v1.1.0-rc.7) (2024-01-15)
+
+
+### Features
+
+* create PR in deployment repo ([0388279](https://github.com/dlopezb93/sample-argocd-app/commit/03882798bd0e3f144960ca0a58f6638eb9351500))
+
 # [1.1.0-rc.6](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.5...v1.1.0-rc.6) (2024-01-15)
 
 
