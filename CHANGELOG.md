@@ -1,3 +1,10 @@
+# [1.1.0-rc.5](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.4...v1.1.0-rc.5) (2024-01-15)
+
+
+### Features
+
+* update manifiest files in deployments repo ([de38220](https://github.com/dlopezb93/sample-argocd-app/commit/de38220acd711f30dddbfe3cad326c11959c3761))
+
 # [1.1.0-rc.4](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.3...v1.1.0-rc.4) (2024-01-15)
 
 
