@@ -90,11 +90,29 @@ jobs:
         cmd: yq '.image.tag = "${{ env.IMAGE_TAG }}"' -i ./source-deployments/charts/nginx/values-${{ vars.STAGE }}.yaml
     - run: cat ./source-deployments/charts/nginx/values-${{ vars.STAGE}}.yaml
     - name: Push Project B
+      if: |
+        ${{ steps.semantic.outputs.new_release_published == 'true' }} && ${{ vars.STAGE == 'prd' }}
       run: |
         cd ./source-deployments
         git add .
-        git config user.name github-actions-bot
+        git config user.name github-actions
         git config user.email github-actions@github.com
         git commit -am "chore: update image tag in values-${{ vars.STAGE }}.yaml [skip ci]"
         git push
+    - name: Create PR
+      if: |
+        ${{ steps.semantic.outputs.new_release_published == 'true' }} && ${{ vars.STAGE == 'stg' }}
+      run: |
+        cd ./source-deployments        
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git checkout -b chore/update-image-tag
+        git add .   
+        git commit -am "chore: update image tag in values-${{ vars.STAGE }}.yaml [skip ci]"
+        git push origin chore/update-image-tag
+        gh pr create \
+            --body "" \
+            --title "chore: update image tag" \
+            --head "chore/update-image-tag" \
+            --base "main"
   
