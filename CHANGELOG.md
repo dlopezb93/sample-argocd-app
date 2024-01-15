@@ -1,3 +1,10 @@
+# [1.1.0-rc.10](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.9...v1.1.0-rc.10) (2024-01-15)
+
+
+### Features
+
+* update pull request source code ([e6b4ebb](https://github.com/dlopezb93/sample-argocd-app/commit/e6b4ebb49237a73eb5e3f1e908547792f75d6c6d))
+
 # [1.1.0-rc.9](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.8...v1.1.0-rc.9) (2024-01-15)
 
 
