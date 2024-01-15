@@ -1,3 +1,10 @@
+# [1.1.0-rc.9](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.8...v1.1.0-rc.9) (2024-01-15)
+
+
+### Features
+
+* update PR creation logic ([a7f894e](https://github.com/dlopezb93/sample-argocd-app/commit/a7f894ed156f4f226d9001bab0c8eeb84a029077))
+
 # [1.1.0-rc.8](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.7...v1.1.0-rc.8) (2024-01-15)
 
 
