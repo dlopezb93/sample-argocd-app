@@ -1,3 +1,10 @@
+# [1.1.0-rc.11](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.10...v1.1.0-rc.11) (2024-01-15)
+
+
+### Bug Fixes
+
+* update if statement clause ([5de870c](https://github.com/dlopezb93/sample-argocd-app/commit/5de870c3630a8743331f87d2a0eb1f1f10899f86))
+
 # [1.1.0-rc.10](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.9...v1.1.0-rc.10) (2024-01-15)
 
 
