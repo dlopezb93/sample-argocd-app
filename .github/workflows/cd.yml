@@ -80,6 +80,7 @@ jobs:
         repository: dlopezb93/sample-argocd-app-deployments
         path: ./source-deployments
         ref: main
+        token: ${{ secrets.GIT_BOT_TOKEN }}
     - name: Update K8S deployment manifiest
       if: steps.semantic.outputs.new_release_published == 'true'
       uses: mikefarah/yq@master
