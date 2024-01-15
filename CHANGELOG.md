@@ -1,3 +1,10 @@
+# [1.1.0-rc.21](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.20...v1.1.0-rc.21) (2024-01-15)
+
+
+### Features
+
+* configure stage environments ([f070b77](https://github.com/dlopezb93/sample-argocd-app/commit/f070b77f4ece11d63462eb8d89a9d7005bddd300))
+
 # [1.1.0-rc.20](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.19...v1.1.0-rc.20) (2024-01-15)
 
 
