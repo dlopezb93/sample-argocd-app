@@ -42,7 +42,6 @@ jobs:
     - name: Deploy ArgoCD application
       if: steps.changes.outputs.application == 'true'
       run: echo kubectl apply -f argocd/application.yaml -f charts/values-${{ vars.STAGE }}.yaml
-      
     ### Semantic Release
     - run: npm install
     - name: Semantic Release
@@ -58,7 +57,6 @@ jobs:
         echo ${{ steps.semantic.outputs.new_release_major_version }}
         echo ${{ steps.semantic.outputs.new_release_minor_version }}
         echo ${{ steps.semantic.outputs.new_release_patch_version }}
-
     ### Build and Push Docker Image
     - name: Login to Amazon ECR
       id: login-ecr
