@@ -1,3 +1,10 @@
+# [1.1.0-rc.19](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.18...v1.1.0-rc.19) (2024-01-15)
+
+
+### Features
+
+* configure gitbot token ([27ffc8f](https://github.com/dlopezb93/sample-argocd-app/commit/27ffc8fec48b94a3db4a6f7b3709c35f51d2b75e))
+
 # [1.1.0-rc.18](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.17...v1.1.0-rc.18) (2024-01-15)
 
 
