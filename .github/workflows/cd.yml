@@ -60,7 +60,7 @@ jobs:
         ref: main
         token: ${{ secrets.GIT_BOT_TOKEN }}
     - name: Staging - Update K8S Manifiest
-      if: (steps.semantic.outputs.new_release_published == 'true' && vars.STAGE == 'prd')  
+      if: (steps.semantic.outputs.new_release_published == 'true' && vars.STAGE == 'stg')  
       env:
         IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}      
       run: |
@@ -72,7 +72,7 @@ jobs:
         git commit -am "chore(stg): release ${{ env.IMAGE_TAG }} [skip ci]"
         git push
     - name: Production - Create PR in deployments repository
-      if: (steps.semantic.outputs.new_release_published == 'true' && vars.STAGE == 'stg')
+      if: (steps.semantic.outputs.new_release_published == 'true' && vars.STAGE == 'prd')
       env:
         IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
         GH_TOKEN: ${{ secrets.GIT_BOT_TOKEN }}        
