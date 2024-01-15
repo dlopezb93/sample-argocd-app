@@ -1,6 +1,6 @@
 {
   "name": "sample-argocd-app",
-  "version": "1.1.0-rc.5",
+  "version": "1.1.0-rc.6",
   "private": true,
   "devDependencies": {
     "@commitlint/cli": "^18.4.4",
