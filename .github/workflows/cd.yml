@@ -103,11 +103,23 @@ jobs:
       if: |
         ${{ steps.semantic.outputs.new_release_published == 'true' }} && ${{ vars.STAGE == 'stg' }}
       run: |
-        cd ./source-deployments        
+        REPOSITORY="dlopezb93/sample-argocd-app-deployments"
+        FOLDER="bin/$REPOSITORY"
+
+        # Clone the remote repository and change working directory to the
+        # folder it was cloned to.
+        git clone \
+          --depth=1 \
+          --branch=main \
+          https://dlopezb93:${{ secrets.GIT_BOT_TOKEN }}@github.com/$REPOSITORY \
+          $FOLDER
+
+        cd $FOLDER
         git config user.name github-actions
         git config user.email github-actions@github.com
         git checkout -b chore/update-image-tag
-        git add .   
+        cp ./source-deployments/charts/nginx/values-${{ vars.STAGE }}.yaml $FOLDER/charts/nginx/values-${{ vars.STAGE }}.yaml
+        git add .
         git commit -am "chore: update image tag in values-${{ vars.STAGE }}.yaml [skip ci]"
         git push origin chore/update-image-tag
         gh pr create \
