@@ -1,3 +1,10 @@
+# [1.1.0-rc.20](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.19...v1.1.0-rc.20) (2024-01-15)
+
+
+### Features
+
+* improve github actions for deployment ([42bc5f1](https://github.com/dlopezb93/sample-argocd-app/commit/42bc5f1bb62b3bb3602d3353fd964f79e49e812d))
+
 # [1.1.0-rc.19](https://github.com/dlopezb93/sample-argocd-app/compare/v1.1.0-rc.18...v1.1.0-rc.19) (2024-01-15)
 
 
