@@ -85,6 +85,7 @@ jobs:
       run: |
         REPOSITORY="dlopezb93/sample-argocd-app-deployments"
         FOLDER="bin/$REPOSITORY"
+        BRANCH="chore/update-tag-${{ env.IMAGE_TAG }}"
 
         # Clone the remote repository and change working directory to the
         # folder it was cloned to.
@@ -97,15 +98,15 @@ jobs:
         cd $FOLDER
         git config user.name github-actions
         git config user.email github-actions@github.com
-        git checkout -b chore/update-image-tag
+        git checkout -b $BRANCH
         yq '.image.tag = "${{ env.IMAGE_TAG }}"' -i ./charts/nginx/values-${{ vars.STAGE }}.yaml
         cat ./charts/nginx/values-${{ vars.STAGE }}.yaml
         git add .
         git commit -am "chore: update image tag in values-${{ vars.STAGE }}.yaml [skip ci]"
-        git push origin chore/update-image-tag
+        git push origin $BRANCH
         gh pr create \
             --body "" \
-            --title "chore: update image tag" \
-            --head "chore/update-image-tag" \
+            --title "chore(prd): release image tag ${{ env.IMAGE_TAG}} " \
+            --head "$BRANCH" \
             --base "main"
   
