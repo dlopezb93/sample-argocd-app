@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 env:
-  ECR_REPOSITORY: nginx-app
+  ECR_REPOSITORY: nginx
   EKS_CLUSTER_NAME: main-${{ vars.STAGE }}
   AWS_REGION: us-east-1
   
@@ -59,15 +59,20 @@ jobs:
         echo ${{ steps.semantic.outputs.new_release_minor_version }}
         echo ${{ steps.semantic.outputs.new_release_patch_version }}
 
-    ### Build Docker Image
+    ### Build and Push Docker Image
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
     - name: Build, tag, and push image to Amazon ECR
+      if: steps.semantic.outputs.new_release_published == 'true'
       env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
-        IMAGE_TAG: ${{ steps.commit.outputs.short }}
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ steps.semantic.outputs.new_release_version }}
       run: |
           echo docker build -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} -f docker/Dockerfile .
           echo docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          docker pull nginx:latest
+          docker tag nginx:latest ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          
   
